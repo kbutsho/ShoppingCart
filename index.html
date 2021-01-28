@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section>
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button class="btn btn-default" id="mobileRemoveBtn"
+                              onclick=' productHandel("inputMobileAmount", "mobilePrice", false)'><i
+                                 class="fas fa-minus"></i></button>
+                           <input type="text" class="form-control text-center" id="inputMobileAmount" value="1">
+                           <button class="btn btn-default" id="mobileAddBtn"
+                              onclick='productHandel("inputMobileAmount", "mobilePrice", true)'><i
+                                 class="fas fa-plus"></i></button>
+                        </div>
+                        <h5>$ <span id="mobilePrice">1219</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button class="btn btn-default" id="coverRemoveBtn"><i class="fas fa-minus"></i></button>
+                           <input type="text" class="form-control text-center" id="inputCoverAmount" value="1">
+                           <button class="btn btn-default" id="coverAddBtn"><i class="fas fa-plus"></i></button>
+
+                        </div>
+                        <h5>$ <span id="coverPrice">59</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax: 10% </h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5>$ <span id="totalPrice">1278</span></h5>
+                        <h5>$ <span id="tax">0</span></h5>
+                        <h5>$ <span id="grandTotal">1278</span></h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <script>
+      // use onclick event in html file
+      /*document.getElementById("mobileAddBtn").addEventListener("click", function () {
+         productHandel("inputMobileAmount", "mobilePrice", true);
+      })
+      document.getElementById("mobileRemoveBtn").addEventListener("click", function () {
+         productHandel("inputMobileAmount", "mobilePrice", false);
+      })
+      */
+      document.getElementById("coverAddBtn").addEventListener("click", function () {
+         productHandel("inputCoverAmount", "coverPrice", true);
+      })
+      document.getElementById("coverRemoveBtn").addEventListener("click", function () {
+         productHandel("inputCoverAmount", "coverPrice", false);
+      })
+      function productHandel(amountId, priceId, isIncrease) {
+         var inputParseAmount = document.getElementById(amountId).value;
+         var inputAmount = parseInt(inputParseAmount);
+         let amount = inputAmount;
+         if (isIncrease == true) {
+            amount = inputAmount + 1;
+         }
+         if (isIncrease == false && inputAmount > 0) {
+            amount = inputAmount - 1;
+         }
+         if (amountId == "inputMobileAmount") {
+            price = 1219 * amount;
+         } else {
+            price = 59 * amount;
+         }
+         document.getElementById(amountId).value = amount;
+         document.getElementById(priceId).innerText = price;
+         totalPrice();
+      }
+      function totalPrice() {
+         var coverParesAmount = document.getElementById("inputCoverAmount").value;
+         var coverTotalAmount = parseInt(coverParesAmount);
+         var mobileParesAmount = document.getElementById("inputMobileAmount").value;
+         var mobileTotalAmount = parseInt(mobileParesAmount);
+         // product price calculation 
+         var TotalPrice = coverTotalAmount * 59 + mobileTotalAmount * 1219;
+         var ProductPrice = parseFloat(TotalPrice);
+         document.getElementById("totalPrice").innerText = ProductPrice;
+         // tax calculation
+         var tax = ProductPrice * 0.1;
+         var finalTax = parseFloat(tax);
+         var finalTax = finalTax.toFixed(2);
+         document.getElementById("tax").innerText = finalTax;
+         // grand Total calculation 
+         var getGrandPrice = tax + ProductPrice;
+         var finalPrice = getGrandPrice.toFixed(2);
+         document.getElementById("grandTotal").innerText = finalPrice;
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   </script>
+</body>
+
+</html>
